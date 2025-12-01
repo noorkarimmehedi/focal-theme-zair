@@ -11,7 +11,7 @@
   "current": {
     "header_background": "#ffffff",
     "header_text_color": "#000000",
-    "heading_font": "libre_bodoni_n4",
+    "heading_font": "sans_serif_n4",
     "stagger_products_apparition": true,
     "reveal_product_media": true,
     "cart_icon": "tote_bag",
