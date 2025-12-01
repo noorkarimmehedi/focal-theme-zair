@@ -1,387 +1,532 @@
-<style>
-  #shopify-section-{{ section.id }} .footer {
-    {%- assign border_color = settings.footer_background | color_mix: settings.footer_text_color, 85 -%}
+{% comment %}
+  Premium E-commerce Footer
+  Design: Clean, minimal footer with boxed link sections
+  Features: Scrolling marquee, logo, 2x2 box grid, copyright, social bar
+{% endcomment %}
 
-    --background: {{ settings.footer_background.red }}, {{ settings.footer_background.green }}, {{ settings.footer_background.blue }};
-    --heading-color: {{ settings.footer_text_color.red }}, {{ settings.footer_text_color.green }}, {{ settings.footer_text_color.blue }};
-    --text-color: {{ settings.footer_text_color.red }}, {{ settings.footer_text_color.green }}, {{ settings.footer_text_color.blue }};
-    --border-color: {{ border_color.red }}, {{ border_color.green }}, {{ border_color.blue }};
+{% style %}
+  #shopify-section-{{ section.id }} .premium-footer {
+    width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
-</style>
 
-<footer class="footer {% if settings.footer_background == settings.background %}footer--bordered{% endif %}">
-  <div class="container">
-    <div class="footer__inner">
-      <div class="footer__item-list">
+  #shopify-section-{{ section.id }} .premium-footer__marquee {
+    background-color: {{ section.settings.marquee_bg_color }};
+    overflow: hidden;
+    padding: 12px 0;
+    position: relative;
+    border: 1px solid #000000;
+  }
+
+  #shopify-section-{{ section.id }} .premium-footer__marquee-content {
+    display: flex;
+    white-space: nowrap;
+    animation: premium-footer-scroll 30s linear infinite;
+  }
+
+  #shopify-section-{{ section.id }} .premium-footer__marquee-text {
+    color: {{ section.settings.marquee_text_color }};
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    padding: 0 40px;
+  }
+
+  @keyframes premium-footer-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  #shopify-section-{{ section.id }} .premium-footer__main {
+    background-color: {{ section.settings.main_bg_color }};
+    padding: 60px 20px 40px;
+  }
+
+  #shopify-section-{{ section.id }} .premium-footer__content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  #shopify-section-{{ section.id }} .premium-footer__logo {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  #shopify-section-{{ section.id }} .premium-footer__logo-image {
+    max-width: 120px;
+    height: auto;
+    display: inline-block;
+  }
+
+  #shopify-section-{{ section.id }} .premium-footer__logo-text {
+    font-size: 32px;
+    font-weight: 700;
+    color: {{ section.settings.logo_color }};
+    letter-spacing: 2px;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .premium-footer__box-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .premium-footer__box {
+    background-color: {{ section.settings.box_bg_color }};
+    border: 2px solid {{ section.settings.box_border_color }};
+    padding: 12px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    min-height: 50px;
+  }
+
+  #shopify-section-{{ section.id }} .premium-footer__box:hover {
+    background-color: {{ section.settings.box_hover_bg_color }};
+    border-color: {{ section.settings.box_hover_border_color }};
+    transform: translateY(-2px);
+  }
+
+  #shopify-section-{{ section.id }} .premium-footer__box-text {
+    color: {{ section.settings.box_text_color }};
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  #shopify-section-{{ section.id }} .premium-footer__box:hover .premium-footer__box-text {
+    color: {{ section.settings.box_hover_text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .premium-footer__copyright-wrapper {
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .premium-footer__copyright {
+    color: {{ section.settings.copyright_color }};
+    font-size: 10px;
+    letter-spacing: 1px;
+    margin: 0 0 8px;
+  }
+
+  #shopify-section-{{ section.id }} .premium-footer__credit {
+    color: {{ section.settings.credit_color }};
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .premium-footer__credit-link {
+    color: {{ section.settings.credit_link_color }};
+    text-decoration: underline;
+    transition: opacity 0.3s ease;
+  }
+
+  #shopify-section-{{ section.id }} .premium-footer__credit-link:hover {
+    opacity: 0.7;
+  }
+
+  #shopify-section-{{ section.id }} .premium-footer__bottom-bar {
+    background-color: {{ section.settings.bottom_bar_bg_color }};
+    padding: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .premium-footer__social-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .premium-footer__social-left {
+    display: flex;
+    gap: 30px;
+  }
+
+  #shopify-section-{{ section.id }} .premium-footer__social-right {
+    display: flex;
+    gap: 30px;
+  }
+
+  #shopify-section-{{ section.id }} .premium-footer__social-link {
+    color: {{ section.settings.social_link_color }};
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    transition: opacity 0.3s ease;
+  }
+
+  #shopify-section-{{ section.id }} .premium-footer__social-link:hover {
+    opacity: 0.7;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .premium-footer__marquee-text {
+      font-size: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .premium-footer__box-grid {
+      gap: 7px;
+    }
+
+    #shopify-section-{{ section.id }} .premium-footer__box {
+      padding: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .premium-footer__box-text {
+      font-size: 9px;
+    }
+
+    #shopify-section-{{ section.id }} .premium-footer__social-links {
+      gap: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .premium-footer__social-left {
+      gap: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .premium-footer__social-right {
+      gap: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .premium-footer__social-link {
+      font-size: 9px;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .premium-footer__content {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      max-width: 1200px;
+      margin: 0 auto;
+      gap: 60px;
+    }
+
+    #shopify-section-{{ section.id }} .premium-footer__left-section {
+      flex: 0 0 auto;
+      max-width: 350px;
+    }
+
+    #shopify-section-{{ section.id }} .premium-footer__logo {
+      text-align: left;
+      margin-bottom: 40px;
+    }
+
+    #shopify-section-{{ section.id }} .premium-footer__logo-text {
+      font-size: 40px;
+    }
+
+    #shopify-section-{{ section.id }} .premium-footer__logo-image {
+      max-width: 150px;
+    }
+
+    #shopify-section-{{ section.id }} .premium-footer__copyright-wrapper {
+      text-align: left;
+    }
+
+    #shopify-section-{{ section.id }} .premium-footer__box-grid {
+      flex: 1;
+      max-width: 700px;
+    }
+  }
+{% endstyle %}
+
+<footer class="premium-footer">
+  <div class="premium-footer__marquee">
+    <div class="premium-footer__marquee-content">
+      {% for i in (1..20) %}
+        <span class="premium-footer__marquee-text">{{ section.settings.marquee_text }}</span>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="premium-footer__main">
+    <div class="premium-footer__content">
+      <div class="premium-footer__left-section">
+        <div class="premium-footer__logo">
+          {% if section.settings.logo_image != blank %}
+            <img
+              src="{{ section.settings.logo_image | image_url: width: 600 }}"
+              alt="{{ shop.name | escape }}"
+              class="premium-footer__logo-image"
+              loading="lazy"
+            >
+          {% else %}
+            <h2 class="premium-footer__logo-text">{{ shop.name }}</h2>
+          {% endif %}
+        </div>
+
+        <div class="premium-footer__copyright-wrapper">
+          <p class="premium-footer__copyright">{{ section.settings.copyright_text }}</p>
+          <p class="premium-footer__credit">
+            Website designed and developed by 
+            {% if section.settings.developer_url != blank %}
+              <a href="{{ section.settings.developer_url }}" class="premium-footer__credit-link" target="_blank" rel="noopener">{{ section.settings.developer_name }}</a>
+            {% else %}
+              <span class="premium-footer__credit-link">{{ section.settings.developer_name }}</span>
+            {% endif %}
+          </p>
+        </div>
+      </div>
+
+      <div class="premium-footer__box-grid">
         {%- for block in section.blocks -%}
-          {%- capture block_content -%}
-            {%- case block.type -%}
-              {%- when 'image' -%}
-                {%- if block.settings.image != blank -%}
-                  <img style="width: {{ block.settings.image_width }}px" loading="lazy" sizes="{{ block.settings.image_width }}px" class="footer__image" {% render 'image-attributes', image: block.settings.image, sizes: '100, 200, 300, 400, 500, 600' %}>
-                {%- endif -%}
-
-              {%- when 'text' -%}
-                {%- if block.settings.title != blank -%}
-                  <p class="footer__item-title heading heading--small">{{ block.settings.title | escape }}</p>
-                {%- endif -%}
-
-                {%- if block.settings.content != blank -%}
-                  <div class="footer__item-content">
-                    {{- block.settings.content -}}
-                  </div>
-                {%- endif -%}
-
-              {%- when 'links' -%}
-                {%- assign menu = block.settings.menu -%}
-
-                {%- if menu != blank -%}
-                  <p class="footer__item-title heading heading--small">{{ menu.title }}</p>
-
-                  <div class="footer__item-content">
-                    <ul class="linklist list--unstyled" role="list">
-                      {%- for link in menu.links -%}
-                        <li class="linklist__item">
-                          <a href="{{ link.url }}" class="link--faded">{{ link.title }}</a>
-                        </li>
-                      {%- endfor -%}
-                    </ul>
-                  </div>
-                {%- endif -%}
-
-              {%- when 'social_media' -%}
-                {%- if block.settings.title != blank -%}
-                  <p class="footer__item-title heading heading--small">{{ block.settings.title | escape }}</p>
-                {%- endif -%}
-
-                <div class="footer__item-content">
-                  {%- if block.settings.content != blank -%}
-                    {{- block.settings.content -}}
-                  {%- endif -%}
-
-                  {%- render 'social-media' -%}
-                </div>
-
-              {%- when 'newsletter' -%}
-                {%- if block.settings.title != blank -%}
-                  <p class="footer__item-title heading heading--small">{{ block.settings.title | escape }}</p>
-                {%- endif -%}
-
-                <div class="footer__item-content">
-                  {%- if block.settings.content != blank -%}
-                    {{- block.settings.content -}}
-                  {%- endif -%}
-
-                  {%- form 'customer', id: 'footer-newsletter', class: 'footer__newsletter-form form' -%}
-                    {%- if form.posted_successfully? -%}
-                      <div class="form__banner banner banner--success">
-                        <span class="banner__ribbon">{% render 'icon' with 'form-success' %}</span>
-                        <p class="banner__content">{{ 'footer.newsletter.success' | t }}</p>
-                      </div>
-                    {%- else -%}
-                      {%- if form.errors -%}
-                        <div class="form__banner banner banner--error">
-                          <span class="banner__ribbon">{% render 'icon' with 'form-error' %}</span>
-                          <p class="banner__content">{{ form.errors.translated_fields['email'] }} {{ form.errors.messages['email'] }}</p>
-                        </div>
-                      {%- endif -%}
-
-                      <input type="hidden" name="contact[tags]" value="newsletter">
-
-                      <div class="input">
-                        <input type="email" id="footer[contact][email]" name="contact[email]" class="input__field input__field--text">
-                        <label for="footer[contact][email]" class="input__label">{{ 'footer.newsletter.email' | t }}</label>
-                        <button type="submit" class="input__submit-icon tap-area" title="{{ 'footer.newsletter.submit' | t }}">{% render 'icon' with 'nav-arrow-right', direction_aware: true %}</button>
-                      </div>
-                    {%- endif -%}
-                  {%- endform -%}
-                </div>
-            {%- endcase -%}
-          {%- endcapture -%}
-
-          {%- if block_content != blank -%}
-            <div class="footer__item footer__item--{{ block.type | replace: '_', '-' }} {% if forloop.first %}is-first{% endif %}" {{ block.shopify_attributes }}>
-              {{- block_content -}}
-            </div>
+          {%- if block.type == 'link_box' and block.settings.text != blank -%}
+            <a href="{{ block.settings.url }}" class="premium-footer__box" {{ block.shopify_attributes }}>
+              <p class="premium-footer__box-text">{{ block.settings.text }}</p>
+            </a>
           {%- endif -%}
         {%- endfor -%}
       </div>
+    </div>
+  </div>
 
-      <div class="footer__aside">
-        {%- if section.settings.show_country_selector and localization.available_countries.size > 1 -%}
-          {%- assign country_selector = true -%}
-        {%- endif -%}
-
-        {%- if section.settings.show_locale_selector and localization.available_languages.size > 1 -%}
-          {%- assign locale_selector = true -%}
-        {%- endif -%}
-
-        {%- if country_selector or locale_selector -%}
-          {%- form 'localization', id: 'localization_form_footer', class: 'footer__cross-border' -%}
-            {%- if country_selector -%}
-              <div class="popover-container">
-                <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
-                <span class="visually-hidden">{{ 'footer.general.country' | t }}</span>
-
-                <button type="button" is="toggle-button" class="select select--small {% if locale_selector and settings.button_border_radius > 0 %}select--collapse-end{% endif %} text--xsmall" aria-expanded="false" aria-controls="footer-currency-selector">
-                  {{- localization.country.name }} ({{ localization.country.currency.iso_code }} {% if localization.country.currency.symbol %}{{ localization.country.currency.symbol }}{%- endif -%})
-                  {%- render 'icon' with 'chevron', width: 9, height: 6, inline: true -%}
-                </button>
-
-                <popover-content id="footer-currency-selector" class="popover popover--top popover--left popover--small">
-                  <span class="popover__overlay"></span>
-
-                  <header class="popover__header">
-                    <span class="popover__title heading h6">{{- 'footer.general.country' | t -}}</span>
-
-                    <button type="button" class="popover__close-button tap-area tap-area--large" data-action="close" title="{{ 'general.accessibility.close' | t | escape }}">
-                      {%- render 'icon' with 'close' -%}
-                    </button>
-                  </header>
-
-                  <div class="popover__content popover__content--restrict">
-                    <div class="popover__choice-list">
-                      {%- for country in localization.available_countries -%}
-                        <button type="submit" name="country_code" value="{{ country.iso_code }}" class="popover__choice-item">
-                          <span class="popover__choice-label" {% if country.iso_code == localization.country.iso_code %}aria-current="true"{% endif %}>
-                            {{- country.name }} ({{ country.currency.iso_code }} {% if country.currency.symbol %}{{ country.currency.symbol }}{%- endif -%})
-                          </span>
-                        </button>
-                      {%- endfor -%}
-                    </div>
-                  </div>
-                </popover-content>
-              </div>
-            {%- endif -%}
-
-            {%- if locale_selector -%}
-              <div class="popover-container">
-                <input type="hidden" name="locale_code" value="{{ localization.language.iso_code }}">
-                <span class="visually-hidden">{{ 'footer.general.language' | t }}</span>
-
-                <button type="button" is="toggle-button" class="select select--small {% if country_selector and settings.button_border_radius > 0 %}select--collapse-start{% endif %} text--xsmall" aria-expanded="false" aria-controls="footer-locale-selector">
-                  {{- localization.language.endonym_name | capitalize -}}
-                  {%- render 'icon' with 'chevron', width: 9, height: 6, inline: true -%}
-                </button>
-
-                <popover-content id="footer-locale-selector" class="popover popover--top popover--small">
-                  <span class="popover__overlay"></span>
-
-                  <header class="popover__header">
-                    <span class="popover__title heading h6">{{- 'footer.general.language' | t -}}</span>
-
-                    <button type="button" class="popover__close-button tap-area tap-area--large" data-action="close" title="{{ 'general.accessibility.close' | t | escape }}">
-                      {%- render 'icon' with 'close' -%}
-                    </button>
-                  </header>
-
-                  <div class="popover__content">
-                    <div class="popover__choice-list">
-                      {%- for language in localization.available_languages -%}
-                        <button type="submit" name="locale_code" value="{{ language.iso_code }}" class="popover__choice-item">
-                          <span class="popover__choice-label" {% if language.iso_code == localization.language.iso_code %}aria-current="true"{% endif %}>
-                            {{- language.endonym_name | capitalize -}}
-                          </span>
-                        </button>
-                      {%- endfor -%}
-                    </div>
-                  </div>
-                </popover-content>
-              </div>
-            {%- endif -%}
-          {%- endform -%}
-        {%- endif -%}
-
-        <span class="footer__copyright text--xsmall text--subdued">{{ shop.name }} <span class="square-separator square-separator--block square-separator--subdued"></span> {{ powered_by_link | replace: '<a', '<a class="link--faded"' }}</span>
-
-        {%- if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 -%}
-          <div class="footer__payment-methods">
-            <span class="footer__payment-methods-label text--xsmall text--subdued">{{ 'footer.general.we_accept' | t }}</span>
-
-            <div class="payment-methods-list payment-methods-list--auto">
-              {% for type in shop.enabled_payment_types %}
-                {{ type | payment_type_svg_tag }}
-              {% endfor %}
-            </div>
-          </div>
-        {%- endif -%}
+  <div class="premium-footer__bottom-bar">
+    <div class="premium-footer__social-links">
+      <div class="premium-footer__social-left">
+        {% if section.settings.social_link_1_text != blank %}
+          <a href="{{ section.settings.social_link_1_url }}" class="premium-footer__social-link" target="_blank" rel="noopener">
+            {{ section.settings.social_link_1_text }}
+          </a>
+        {% endif %}
+      </div>
+      <div class="premium-footer__social-right">
+        {% if section.settings.social_link_2_text != blank %}
+          <a href="{{ section.settings.social_link_2_url }}" class="premium-footer__social-link" target="_blank" rel="noopener">
+            {{ section.settings.social_link_2_text }}
+          </a>
+        {% endif %}
+        {% if section.settings.social_link_3_text != blank %}
+          <a href="{{ section.settings.social_link_3_url }}" class="premium-footer__social-link" target="_blank" rel="noopener">
+            {{ section.settings.social_link_3_text }}
+          </a>
+        {% endif %}
       </div>
     </div>
   </div>
 </footer>
 
-{%- if section.settings.show_cookie_bar -%}
-  <cookie-bar section="{{ section.id }}" hidden class="cookie-bar text--xsmall">
-    {%- if section.settings.cookie_bar_title != blank -%}
-      <p class="heading heading--xsmall">{{ section.settings.cookie_bar_title }}</p>
-    {%- endif -%}
-
-    {%- if section.settings.cookie_bar_content != blank -%}
-      {{- section.settings.cookie_bar_content -}}
-    {%- endif -%}
-
-    <div class="cookie-bar__actions">
-      <button class="button button--text button--primary button--small text--xsmall" data-action="accept-policy">{{ 'footer.cookie_bar.accept' | t }}</button>
-      <button class="button button--text button--ternary button--small text--xsmall" data-action="decline-policy">{{ 'footer.cookie_bar.decline' | t }}</button>
-    </div>
-  </cookie-bar>
-{%- endif -%}
-
 {% schema %}
 {
   "name": "Footer",
   "class": "shopify-section--footer",
-  "max_blocks": 5,
   "settings": [
     {
-      "type": "checkbox",
-      "id": "show_payment_icons",
-      "label": "Show payment icons",
-      "default": true
-    },
-    {
       "type": "header",
-      "content": "Country/region selector",
-      "info": "To add a country/region, go to your [currency settings.](/admin/settings/payments)"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_country_selector",
-      "label": "Show country/region selector",
-      "default": true
-    },
-    {
-      "type": "header",
-      "content": "Language selector",
-      "info": "To add a language, go to your [language settings.](/admin/settings/languages)"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_locale_selector",
-      "label": "Show language selector",
-      "default": true
-    },
-    {
-      "type": "header",
-      "content": "Customer privacy bar"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_cookie_bar",
-      "label": "Show privacy bar",
-      "info": "Privacy bar will only be visible if it fulfills the conditions of the [Shopify Customer Privacy API](https://shopify.dev/docs/themes/consent-tracking-api)",
-      "default": false
+      "content": "Scrolling Marquee"
     },
     {
       "type": "text",
-      "id": "cookie_bar_title",
-      "label": "Title",
-      "default": "Cookie policy"
+      "id": "marquee_text",
+      "label": "Marquee text",
+      "default": "SHIPPING WORLDWIDE"
     },
     {
-      "type": "richtext",
-      "id": "cookie_bar_content",
-      "label": "Content",
-      "default": "<p>I agree to the processing of my data in accordance with the conditions set out in the policy of Privacy.</p>"
+      "type": "color",
+      "id": "marquee_bg_color",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "marquee_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Brand Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_image",
+      "label": "Logo image"
+    },
+    {
+      "type": "color",
+      "id": "logo_color",
+      "label": "Logo text color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Main Section"
+    },
+    {
+      "type": "color",
+      "id": "main_bg_color",
+      "label": "Background color",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "header",
+      "content": "Box Style"
+    },
+    {
+      "type": "color",
+      "id": "box_bg_color",
+      "label": "Box background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "box_hover_bg_color",
+      "label": "Box hover background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "box_border_color",
+      "label": "Box border color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "box_hover_border_color",
+      "label": "Box hover border color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "box_text_color",
+      "label": "Box text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "box_hover_text_color",
+      "label": "Box hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Copyright"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright text",
+      "default": "© 2025 Your Store, All Rights Reserved."
+    },
+    {
+      "type": "color",
+      "id": "copyright_color",
+      "label": "Copyright text color",
+      "default": "#999999"
+    },
+    {
+      "type": "header",
+      "content": "Website Credit"
+    },
+    {
+      "type": "text",
+      "id": "developer_name",
+      "label": "Developer name",
+      "default": "Arc Lab Technology"
+    },
+    {
+      "type": "url",
+      "id": "developer_url",
+      "label": "Developer URL"
+    },
+    {
+      "type": "color",
+      "id": "credit_color",
+      "label": "Credit text color",
+      "default": "#999999"
+    },
+    {
+      "type": "color",
+      "id": "credit_link_color",
+      "label": "Developer link color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Bottom Social Bar"
+    },
+    {
+      "type": "color",
+      "id": "bottom_bar_bg_color",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "social_link_color",
+      "label": "Link color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "social_link_1_text",
+      "label": "Connect link text",
+      "default": "CONNECT"
+    },
+    {
+      "type": "url",
+      "id": "social_link_1_url",
+      "label": "Connect link URL"
+    },
+    {
+      "type": "text",
+      "id": "social_link_2_text",
+      "label": "Facebook link text",
+      "default": "FACEBOOK"
+    },
+    {
+      "type": "url",
+      "id": "social_link_2_url",
+      "label": "Facebook link URL"
+    },
+    {
+      "type": "text",
+      "id": "social_link_3_text",
+      "label": "Instagram link text",
+      "default": "INSTAGRAM"
+    },
+    {
+      "type": "url",
+      "id": "social_link_3_url",
+      "label": "Instagram link URL"
     }
   ],
   "blocks": [
     {
-      "type": "image",
-      "name": "Image",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Image",
-          "info": "300 x 300px .png recommended"
-        },
-        {
-          "type": "range",
-          "id": "image_width",
-          "min": 50,
-          "max": 300,
-          "step": 10,
-          "unit": "px",
-          "label": "Image width",
-          "default": 150
-        }
-      ]
-    },
-    {
-      "type": "text",
-      "name": "Text",
+      "type": "link_box",
+      "name": "Link Box",
+      "limit": 4,
       "settings": [
         {
           "type": "text",
-          "id": "title",
-          "label": "Heading",
-          "default": "About our store"
+          "id": "text",
+          "label": "Box text",
+          "default": "Privacy Policy"
         },
         {
-          "type": "richtext",
-          "id": "content",
-          "label": "Content",
-          "default": "<p>Use this text area to tell your customers about your brand and vision. You can change it in the theme editor.</p>"
-        }
-      ]
-    },
-    {
-      "type": "links",
-      "name": "Links",
-      "settings": [
-        {
-          "type": "link_list",
-          "id": "menu",
-          "label": "Menu",
-          "info": "This menu won't show dropdown items.",
-          "default": "footer"
-        }
-      ]
-    },
-    {
-      "type": "social_media",
-      "name": "Social media",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "paragraph",
-          "content": "To configure social media, go to your social media settings."
-        },
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Heading",
-          "default": "Follow us"
-        },
-        {
-          "type": "richtext",
-          "id": "content",
-          "label": "Content",
-          "default": "<p>To configure social media, go to your social media settings. Change this text in the theme editor.</p>"
-        }
-      ]
-    },
-    {
-      "type": "newsletter",
-      "name": "Newsletter",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "paragraph",
-          "content": "Customers who subscribe will have their email address added to the \"accepts marketing\" [customer list](/admin/customers?query=&accepts_marketing=1)."
-        },
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Heading",
-          "default": "Newsletter"
-        },
-        {
-          "type": "richtext",
-          "id": "content",
-          "label": "Content",
-          "default": "<p>A short sentence describing what someone will receive by subscribing</p>"
+          "type": "url",
+          "id": "url",
+          "label": "Box URL"
         }
       ]
     }
@@ -389,20 +534,28 @@
   "default": {
     "blocks": [
       {
-        "type": "text",
-        "settings": {}
+        "type": "link_box",
+        "settings": {
+          "text": "Privacy Policy"
+        }
       },
       {
-        "type": "links",
-        "settings": {}
+        "type": "link_box",
+        "settings": {
+          "text": "Terms and Conditions"
+        }
       },
       {
-        "type": "newsletter",
-        "settings": {}
+        "type": "link_box",
+        "settings": {
+          "text": "Exchange and Return Policy"
+        }
       },
       {
-        "type": "social_media",
-        "settings": {}
+        "type": "link_box",
+        "settings": {
+          "text": "COLLABORATIONS"
+        }
       }
     ]
   }
