@@ -50,9 +50,14 @@
     /* Mobile gap reduction */
     @media screen and (max-width: 767px) {
       #shopify-section-{{ section.id }} .container {
-        padding-left: 12px !important;
-        padding-right: 12px !important;
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+        padding-top: 0 !important;
         max-width: 100% !important;
+      }
+      
+      #shopify-section-{{ section.id }} section {
+        padding-top: 0 !important;
       }
       
       #shopify-section-{{ section.id }} .product {
