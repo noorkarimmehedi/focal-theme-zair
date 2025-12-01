@@ -67,10 +67,10 @@
         "ai_gen_block_b013182_83hmUk": {
           "type": "ai_gen_block_b013182",
           "settings": {
-            "heading": "Modern Glass Hero",
-            "subheading": "<p>A beautiful translucent hero section with animated text and glass morphism effect that looks great on all devices.</p>",
+            "heading": "",
+            "subheading": "<p>Vastramay brings India’s cultural style to life with crafted, comfortable ethnic wear for the entire family.</p>",
             "button_label": "Shop Now",
-            "button_link": "",
+            "button_link": "shopify://products/rosetta-sari",
             "background_image": "shopify://shop_images/AJ6541_db4c1464-d5a8-48e0-9ad5-fa06850e0e42.webp",
             "placeholder_color": "#f3f3f3",
             "overlay_color": "#000000",
