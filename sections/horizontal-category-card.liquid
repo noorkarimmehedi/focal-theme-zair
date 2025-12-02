@@ -10,8 +10,18 @@
 {% assign padding_bottom = section.settings.padding_bottom | default: 80 %}
 {% assign padding_top_mobile = section.settings.padding_top_mobile | default: 60 %}
 {% assign padding_bottom_mobile = section.settings.padding_bottom_mobile | default: 60 %}
+{% assign heading_font = section.settings.heading_font %}
+{% assign description_font = section.settings.description_font %}
 
 <style>
+  {% if heading_font %}
+    {{ heading_font | font_face: font_display: 'swap' }}
+  {% endif %}
+  
+  {% if description_font %}
+    {{ description_font | font_face: font_display: 'swap' }}
+  {% endif %}
+
   .category-section-{{ section.id }} {
     padding: {{ padding_top }}px 0 {{ padding_bottom }}px 0;
     background: {{ bg_color }};
@@ -19,10 +29,20 @@
 
   .category-section-{{ section.id }} .category-title {
     color: {{ heading_color }};
+    {% if heading_font %}
+      font-family: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+      font-weight: {{ heading_font.weight }};
+      font-style: {{ heading_font.style }};
+    {% endif %}
   }
 
   .category-section-{{ section.id }} .category-description {
     color: {{ description_color }};
+    {% if description_font %}
+      font-family: {{ description_font.family }}, {{ description_font.fallback_families }};
+      font-weight: {{ description_font.weight }};
+      font-style: {{ description_font.style }};
+    {% endif %}
   }
 
   .category-container {
@@ -360,6 +380,22 @@
       "id": "description_color",
       "label": "Description Color",
       "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading Font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "font_picker",
+      "id": "description_font",
+      "label": "Description Font",
+      "default": "assistant_n4"
     },
     {
       "type": "header",
