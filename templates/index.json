@@ -197,6 +197,8 @@
         "background_color": "#ffffff",
         "heading_color": "#1a1a1a",
         "description_color": "#666666",
+        "heading_font": "bayon_n4",
+        "description_font": "system_ui_n4",
         "padding_top": 80,
         "padding_bottom": 80,
         "padding_top_mobile": 30,
