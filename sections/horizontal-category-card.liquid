@@ -45,6 +45,21 @@
     {% endif %}
   }
 
+  /* Dynamic tag styling per block */
+  {% for block in section.blocks %}
+    {% if block.type == 'category' %}
+      #category-tag-{{ block.id }} .category-tag-icon-circle {
+        background: {{ block.settings.tag_icon_bg | default: '#8B6F47' }};
+      }
+      
+      #category-tag-{{ block.id }} .category-tag-label {
+        background: {{ block.settings.tag_label_bg | default: '#F5F4F0' }};
+        color: {{ block.settings.tag_label_color | default: '#2D2D2D' }};
+        border-color: {{ block.settings.tag_icon_bg | default: '#8B6F47' | color_modify: 'alpha', 0.15 }};
+      }
+    {% endif %}
+  {% endfor %}
+
   .category-container {
     max-width: 1400px;
     margin: 0 auto;
@@ -165,14 +180,51 @@
   .category-tag {
     display: inline-flex;
     align-items: center;
-    padding: 6px 14px;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 500;
-    color: #1a1a1a;
+    gap: 0;
+    padding: 0;
+    background: transparent;
+    border-radius: 24px;
     margin-bottom: 12px;
-    backdrop-filter: blur(10px);
+    overflow: hidden;
+    transition: transform 0.2s ease;
+  }
+
+  .category-tag:hover {
+    transform: translateY(-2px);
+  }
+
+  .category-tag-icon-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #8B6F47;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    flex-shrink: 0;
+    z-index: 2;
+  }
+
+  .category-tag-icon-circle svg {
+    width: 16px;
+    height: 16px;
+    stroke: white;
+    stroke-width: 2;
+  }
+
+  .category-tag-label {
+    background: #F5F4F0;
+    padding: 6px 16px 6px 20px;
+    margin-left: -12px;
+    border-radius: 0 24px 24px 0;
+    font-size: 11px;
+    font-weight: 600;
+    color: #2D2D2D;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border: 1px solid rgba(139, 111, 71, 0.15);
+    white-space: nowrap;
   }
 
   .category-card-title {
@@ -328,8 +380,19 @@
               
               <div class="category-card-overlay">
                 {% if block.settings.tag %}
-                  <div class="category-tag">
-                    {{ block.settings.tag }}
+                  <div class="category-tag" id="category-tag-{{ block.id }}">
+                    <div class="category-tag-icon-circle">
+                      {% if block.settings.tag_icon %}
+                        {{ block.settings.tag_icon }}
+                      {% else %}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <circle cx="12" cy="12" r="10"/>
+                          <line x1="12" y1="8" x2="12" y2="12"/>
+                          <line x1="12" y1="16" x2="12.01" y2="16"/>
+                        </svg>
+                      {% endif %}
+                    </div>
+                    <span class="category-tag-label">{{ block.settings.tag }}</span>
                   </div>
                 {% endif %}
                 <h3 class="category-card-title">{{ block.settings.title }}</h3>
@@ -492,7 +555,38 @@
         {
           "type": "text",
           "id": "tag",
-          "label": "Tag"
+          "label": "Category Tag",
+          "info": "e.g., CASUAL WEAR, NEW ARRIVALS"
+        },
+        {
+          "type": "html",
+          "id": "tag_icon",
+          "label": "Tag Icon (SVG)",
+          "info": "Paste complete SVG code (e.g., <svg viewBox='0 0 24 24' fill='none' stroke='currentColor'><circle cx='12' cy='12' r='10'/></svg>)"
+        },
+        {
+          "type": "header",
+          "content": "Tag Style Customization"
+        },
+        {
+          "type": "color",
+          "id": "tag_icon_bg",
+          "label": "Icon Circle Background",
+          "default": "#8B6F47",
+          "info": "Background color for the circular icon"
+        },
+        {
+          "type": "color",
+          "id": "tag_label_bg",
+          "label": "Label Background",
+          "default": "#F5F4F0",
+          "info": "Background color for the text label"
+        },
+        {
+          "type": "color",
+          "id": "tag_label_color",
+          "label": "Label Text Color",
+          "default": "#2D2D2D"
         },
         {
           "type": "url",
@@ -510,28 +604,38 @@
           "type": "category",
           "settings": {
             "title": "Women's Fashion",
-            "tag": "Trending"
+            "tag": "TRENDING NOW",
+            "tag_icon": "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor'><path d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'/></svg>",
+            "tag_icon_bg": "#8B6F47",
+            "tag_label_bg": "#F5F4F0",
+            "tag_label_color": "#2D2D2D"
           }
         },
         {
           "type": "category",
           "settings": {
             "title": "Men's Collection",
-            "tag": "New Arrivals"
+            "tag": "NEW ARRIVALS",
+            "tag_icon_bg": "#4A7C59",
+            "tag_label_bg": "#F0F5F2"
           }
         },
         {
           "type": "category",
           "settings": {
             "title": "Accessories",
-            "tag": "Best Sellers"
+            "tag": "BEST SELLERS",
+            "tag_icon_bg": "#D97757",
+            "tag_label_bg": "#FDF5F1"
           }
         },
         {
           "type": "category",
           "settings": {
             "title": "Summer Styles",
-            "tag": "Seasonal"
+            "tag": "CASUAL WEAR",
+            "tag_icon_bg": "#5B8BA0",
+            "tag_label_bg": "#F0F7FA"
           }
         }
       ]
