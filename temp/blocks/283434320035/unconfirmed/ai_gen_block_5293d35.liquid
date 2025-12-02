@@ -1,6 +1,669 @@
+{% doc %}
+  @prompt
+    generate a beautiful ingredient section with images in mobile there should be a bottom title in same row with scrollable , still don't like it it should be like when i hover on a image it should becomes bigger with an animation and others should be small and aqll detains gets visible when hovers , apply these: Border
+    Border width
+    
+    1
+    
+    Border color
+    
+    
+    #E0E0E0
+    
+    Hover border color
+    
+    
+    #CCCCCC
+    
+    Border radius
+    
+    8
+    
+    Shadow
+    Horizontal offset
+    
+    0
+    
+    Vertical offset
+    
+    4
+    
+    Blur radius
+    
+    8
+    
+    Shadow opacity
+    
+    0
+    
+    
+    , i want this type of: You are given a task to integrate an existing React component in the codebase
+    
+    The codebase should support:
+    - shadcn project structure  
+    - Tailwind CSS
+    - Typescript
+    
+    If it doesn't, provide instructions on how to setup project via shadcn CLI, install Tailwind or Typescript.
+    
+    Determine the default path for components and styles. 
+    If default path for components is not /components/ui, provide instructions on why it's important to create this folder
+    Copy-paste this component to /components/ui folder:
+    ```tsx
+    expand-cards.tsx
+    "use client";
+    
+    import { useState } from "react";
+    
+    const images = [
+      "https://pbs.twimg.com/media/G6dpB9JaAAA2wDS?format=png&name=360x360",
+      "https://pbs.twimg.com/media/G6dpEiebIAEHrOS?format=jpg&name=360x360",
+      "https://pbs.twimg.com/media/G6dpGJZbsAEg1tp?format=png&name=360x360",
+      "https://pbs.twimg.com/media/G6dpHzVbkAERJI3?format=png&name=360x360",
+      "https://pbs.twimg.com/media/G6dpKpcbgAAj7ce?format=png&name=360x360",
+      "https://pbs.twimg.com/media/G6dpNYzawAAniIt?format=png&name=360x360",
+      "https://pbs.twimg.com/media/G6dpPilbcAAH3jU?format=jpg&name=360x360",
+      "https://pbs.twimg.com/media/G6dpRFBbsAEvquO?format=jpg&name=360x360",
+      "https://pbs.twimg.com/media/G6dpUL-aUAAUqGZ?format=png&name=small",
+    ];
+    
+    const ExpandOnHover = () => {
+      const [expandedImage, setExpandedImage] = useState(3);
+    
+      const getImageWidth = (index: number) =>
+        index === expandedImage ? "24rem" : "5rem";
+    
+      return (
+        <div className="w-full h-screen bg-[#f5f4f3]">
+          <div className="relative grid min-h-screen grid-cols-1 items-center justify-center p-2 transition-all duration-300 ease-in-out lg:flex w-full">
+            <div className="w-full h-full overflow-hidden rounded-3xl">
+              <div className="flex h-full w-full items-center justify-center overflow-hidden bg-[#f5f4f3]">
+                <div className="relative w-full max-w-6xl px-5">
+                  <div className="flex w-full items-center justify-center gap-1">
+                    {images.m, revert to previous one 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-ingredient-section-{{ ai_gen_id }} {
+    padding: {{ block.settings.section_padding }}px 0;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-ingredient-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-ingredient-header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: {{ block.settings.header_spacing }}px;
+  }
+
+  .ai-ingredient-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 12px;
+  }
+
+  .ai-ingredient-subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.subtitle_color }};
+    margin: 0;
+  }
+
+  .ai-ingredient-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: {{ block.settings.grid_gap }}px;
+  }
+
+  .ai-ingredient-item-{{ ai_gen_id }} {
+    position: relative;
+    border-radius: {{ block.settings.border_radius }}px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+    box-shadow: {{ block.settings.shadow_horizontal }}px {{ block.settings.shadow_vertical }}px {{ block.settings.shadow_blur }}px rgba(0, 0, 0, {{ block.settings.shadow_opacity }});
+  }
+
+  .ai-ingredient-image-wrapper-{{ ai_gen_id }} {
+    width: 100%;
+    height: {{ block.settings.image_height }}px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-ingredient-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .ai-ingredient-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-ingredient-image-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-ingredient-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 50%, transparent 100%);
+    padding: 20px;
+    transform: translateY(0);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .ai-ingredient-name-{{ ai_gen_id }} {
+    font-size: {{ block.settings.ingredient_name_size }}px;
+    color: #ffffff;
+    font-weight: 600;
+    margin: 0 0 8px;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .ai-ingredient-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.ingredient_description_size }}px;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.5;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .ai-ingredient-item-{{ ai_gen_id }}:hover {
+    transform: scale(1.15);
+    z-index: 10;
+    border-color: {{ block.settings.hover_border_color }};
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .ai-ingredient-item-{{ ai_gen_id }}:hover .ai-ingredient-image-{{ ai_gen_id }} {
+    transform: scale(1.1);
+  }
+
+  .ai-ingredient-item-{{ ai_gen_id }}:hover .ai-ingredient-description-{{ ai_gen_id }} {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .ai-ingredient-item-{{ ai_gen_id }}:hover .ai-ingredient-overlay-{{ ai_gen_id }} {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.85) 70%, rgba(0, 0, 0, 0.3) 100%);
+  }
+
+  .ai-ingredient-grid-{{ ai_gen_id }}:has(.ai-ingredient-item-{{ ai_gen_id }}:hover) .ai-ingredient-item-{{ ai_gen_id }}:not(:hover) {
+    transform: scale(0.9);
+    opacity: 0.6;
+    filter: grayscale(0.3);
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-ingredient-grid-{{ ai_gen_id }} {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 16px;
+      padding-bottom: 16px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .ai-ingredient-item-{{ ai_gen_id }} {
+      flex: 0 0 280px;
+      scroll-snap-align: start;
+    }
+
+    .ai-ingredient-item-{{ ai_gen_id }}:hover {
+      transform: scale(1.05);
+    }
+
+    .ai-ingredient-grid-{{ ai_gen_id }}:has(.ai-ingredient-item-{{ ai_gen_id }}:hover) .ai-ingredient-item-{{ ai_gen_id }}:not(:hover) {
+      transform: scale(0.95);
+      opacity: 0.7;
+    }
+
+    .ai-ingredient-grid-{{ ai_gen_id }}::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .ai-ingredient-grid-{{ ai_gen_id }}::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    .ai-ingredient-grid-{{ ai_gen_id }}::-webkit-scrollbar-thumb {
+      background: {{ block.settings.scrollbar_color }};
+      border-radius: 10px;
+    }
+
+    .ai-ingredient-grid-{{ ai_gen_id }}::-webkit-scrollbar-thumb:hover {
+      background: {{ block.settings.scrollbar_hover_color }};
+    }
+  }
+{% endstyle %}
+
+<div class="ai-ingredient-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-ingredient-container-{{ ai_gen_id }}">
+    {% if block.settings.title != blank or block.settings.subtitle != blank %}
+      <div class="ai-ingredient-header-{{ ai_gen_id }}">
+        {% if block.settings.title != blank %}
+          <h2 class="ai-ingredient-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+        {% endif %}
+        {% if block.settings.subtitle != blank %}
+          <div class="ai-ingredient-subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="ai-ingredient-grid-{{ ai_gen_id }}">
+      {% for i in (1..6) %}
+        {% liquid
+          assign image_key = 'ingredient_' | append: i | append: '_image'
+          assign name_key = 'ingredient_' | append: i | append: '_name'
+          assign description_key = 'ingredient_' | append: i | append: '_description'
+          
+          assign ingredient_image = block.settings[image_key]
+          assign ingredient_name = block.settings[name_key]
+          assign ingredient_description = block.settings[description_key]
+        %}
+
+        <div class="ai-ingredient-item-{{ ai_gen_id }}">
+          <div class="ai-ingredient-image-wrapper-{{ ai_gen_id }}">
+            {% if ingredient_image %}
+              <img
+                src="{{ ingredient_image | image_url: width: 600 }}"
+                alt="{{ ingredient_image.alt | escape }}"
+                loading="lazy"
+                width="600"
+                height="{{ block.settings.image_height }}"
+                class="ai-ingredient-image-{{ ai_gen_id }}"
+              >
+            {% else %}
+              <div class="ai-ingredient-image-placeholder-{{ ai_gen_id }}">
+                {{ 'product-1' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+            
+            <div class="ai-ingredient-overlay-{{ ai_gen_id }}">
+              {% if ingredient_name != blank %}
+                <h3 class="ai-ingredient-name-{{ ai_gen_id }}">{{ ingredient_name }}</h3>
+              {% endif %}
+              
+              {% if ingredient_description != blank %}
+                <p class="ai-ingredient-description-{{ ai_gen_id }}">{{ ingredient_description }}</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Ingredient showcase",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section header"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Natural Ingredients"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Carefully selected ingredients for your wellness"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Header spacing",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Ingredient 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "ingredient_1_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "ingredient_1_name",
+      "label": "Name",
+      "default": "Aloe Vera"
+    },
+    {
+      "type": "textarea",
+      "id": "ingredient_1_description",
+      "label": "Description",
+      "default": "Soothes and hydrates skin naturally with powerful healing properties"
+    },
+    {
+      "type": "header",
+      "content": "Ingredient 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "ingredient_2_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "ingredient_2_name",
+      "label": "Name",
+      "default": "Green Tea"
+    },
+    {
+      "type": "textarea",
+      "id": "ingredient_2_description",
+      "label": "Description",
+      "default": "Rich in antioxidants for healthy, glowing skin"
+    },
+    {
+      "type": "header",
+      "content": "Ingredient 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "ingredient_3_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "ingredient_3_name",
+      "label": "Name",
+      "default": "Vitamin C"
+    },
+    {
+      "type": "textarea",
+      "id": "ingredient_3_description",
+      "label": "Description",
+      "default": "Brightens and evens skin tone for radiant complexion"
+    },
+    {
+      "type": "header",
+      "content": "Ingredient 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "ingredient_4_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "ingredient_4_name",
+      "label": "Name",
+      "default": "Hyaluronic Acid"
+    },
+    {
+      "type": "textarea",
+      "id": "ingredient_4_description",
+      "label": "Description",
+      "default": "Deeply moisturizes and plumps skin for youthful appearance"
+    },
+    {
+      "type": "header",
+      "content": "Ingredient 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "ingredient_5_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "ingredient_5_name",
+      "label": "Name",
+      "default": "Coconut Oil"
+    },
+    {
+      "type": "textarea",
+      "id": "ingredient_5_description",
+      "label": "Description",
+      "default": "Nourishes and protects skin barrier with essential nutrients"
+    },
+    {
+      "type": "header",
+      "content": "Ingredient 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "ingredient_6_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "ingredient_6_name",
+      "label": "Name",
+      "default": "Shea Butter"
+    },
+    {
+      "type": "textarea",
+      "id": "ingredient_6_description",
+      "label": "Description",
+      "default": "Softens and repairs dry skin with intense hydration"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Section padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 10,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Grid gap",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "image_height",
+      "min": 200,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Image height",
+      "default": 350
+    },
+    {
+      "type": "range",
+      "id": "ingredient_name_size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Ingredient name size",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "ingredient_description_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Border"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#E0E0E0"
+    },
+    {
+      "type": "color",
+      "id": "hover_border_color",
+      "label": "Hover border color",
+      "default": "#CCCCCC"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Shadow"
+    },
+    {
+      "type": "range",
+      "id": "shadow_horizontal",
+      "min": -20,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Horizontal offset",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "shadow_vertical",
+      "min": -20,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Vertical offset",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "shadow_blur",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Blur radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "shadow_opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "label": "Shadow opacity",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "scrollbar_color",
+      "label": "Scrollbar",
+      "default": "#cccccc"
+    },
+    {
+      "type": "color",
+      "id": "scrollbar_hover_color",
+      "label": "Scrollbar hover",
+      "default": "#999999"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ingredient showcase"
+    }
+  ]
+}
 {% endschema %}
