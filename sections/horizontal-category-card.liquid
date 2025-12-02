@@ -59,18 +59,25 @@
     padding-bottom: 8px;
   }
 
-  /* Expand-on-hover effect - when hovering on grid, all cards shrink by default */
-  .category-grid:hover .category-card,
-  .category-grid:hover .category-cta-card {
+  /* Only shrink other cards when one is actively hovered */
+  .category-card:hover ~ .category-card,
+  .category-cta-card:hover ~ .category-card,
+  .category-card:has(~ .category-card:hover),
+  .category-card:has(~ .category-cta-card:hover) {
     width: 80px;
-    opacity: 0.7;
+    opacity: 0.6;
   }
 
-  /* Hovered card expands to full width */
-  .category-grid:hover .category-card:hover,
-  .category-grid:hover .category-cta-card:hover {
-    width: 380px;
-    opacity: 1;
+  .category-cta-card:hover ~ .category-cta-card,
+  .category-card:hover ~ .category-cta-card {
+    width: 80px;
+    opacity: 0.6;
+  }
+
+  /* Hovered card expands */
+  .category-card:hover,
+  .category-cta-card:hover {
+    width: 400px;
   }
 
   .category-card {
@@ -79,7 +86,6 @@
     border-radius: 24px;
     overflow: hidden;
     position: relative;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     background: #fff;
     cursor: pointer;
@@ -108,8 +114,15 @@
   }
 
   /* Hide overlay text when card is collapsed */
-  .category-grid:hover .category-card:not(:hover) .category-card-overlay,
-  .category-grid:hover .category-cta-card:not(:hover) .category-cta-content {
+  .category-card:hover ~ .category-card .category-card-overlay,
+  .category-card:has(~ .category-card:hover) .category-card-overlay,
+  .category-cta-card:hover ~ .category-card .category-card-overlay,
+  .category-card:has(~ .category-cta-card:hover) .category-card-overlay {
+    opacity: 0;
+  }
+
+  .category-cta-card:hover ~ .category-cta-card .category-cta-content,
+  .category-card:hover ~ .category-cta-card .category-cta-content {
     opacity: 0;
   }
 
@@ -149,7 +162,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     position: relative;
@@ -227,14 +239,14 @@
     }
 
     /* Mobile: simpler hover effect */
-    .category-grid:hover .category-card,
-    .category-grid:hover .category-cta-card {
-      width: 200px;
+    .category-card:hover,
+    .category-cta-card:hover {
+      width: 280px;
     }
 
-    .category-grid:hover .category-card:hover,
-    .category-grid:hover .category-cta-card:hover {
-      width: 280px;
+    .category-card:hover ~ .category-card,
+    .category-card:has(~ .category-card:hover) {
+      width: 200px;
     }
 
     .category-card-title {
