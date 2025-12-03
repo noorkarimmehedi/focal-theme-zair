@@ -1,6 +1,497 @@
+{% doc %}
+  @prompt
+    Shopify Section:
+    Layout & Composition:
+    
+    Split Layout: The section uses a classic 50/50 split with the product image on the right and text/CTA on the left
+    White Space: Generous use of negative space creates a clean, premium feel
+    Visual Hierarchy: Clear flow from product name → CTA button
+    
+    Typography:
+    
+    Product Title: "POLO T-SHIRT" in uppercase, likely a sans-serif font, appears understated and elegant
+    CTA Text: "DISCOVER NOW" is smaller but clear, inviting exploration
+    
+    Color Scheme:
+    
+    Minimalist palette with neutral tones (white/off-white background)
+    Creates a sophisticated, high-end aesthetic
+    The white shirt against the light background keeps focus on the product
+    
+    User Experience Elements:
+    
+    Clear CTA: "DISCOVER NOW" suggests clicking will lead to more product details
+    Product Focus: Large, high-quality product image showing the item being worn (lifestyle shot)
+    Minimal Distraction: No clutter, pricing, or excessive information - just enough to create interest
+    Mobile-Friendly: This layout typically adapts well to mobile with the image stacking above the text, the product title price and discover more should be in a card which is customizable from color to font to size also the card should be in the middle of the section don't include photo in that card  just place the card behind the image, the card should be on the behind of the image and the card text should be left alligned 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-split-product-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    min-height: 500px;
+    background-color: {{ block.settings.section_background }};
+    overflow: hidden;
+  }
+
+  .ai-split-product-container-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 500px;
+  }
+
+  .ai-split-product-content-{{ ai_gen_id }} {
+    position: relative;
+    padding: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 500px;
+    z-index: 1;
+  }
+
+  .ai-split-product-card-{{ ai_gen_id }} {
+    background-color: {{ block.settings.card_background }};
+    padding: {{ block.settings.card_padding }}px;
+    border-radius: {{ block.settings.card_border_radius }}px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    max-width: 400px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    margin-right: -80px;
+  }
+
+  .ai-split-product-title-{{ ai_gen_id }} {
+    font-family: {{ block.settings.title_font.family }}, {{ block.settings.title_font.fallback_families }};
+    font-weight: {{ block.settings.title_font.weight }};
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.title_color }};
+    text-transform: {{ block.settings.title_transform }};
+    letter-spacing: 2px;
+    margin: 0 0 20px 0;
+    line-height: 1.2;
+  }
+
+  .ai-split-product-price-{{ ai_gen_id }} {
+    font-family: {{ block.settings.price_font.family }}, {{ block.settings.price_font.fallback_families }};
+    font-weight: {{ block.settings.price_font.weight }};
+    font-size: {{ block.settings.price_size }}px;
+    color: {{ block.settings.price_color }};
+    margin: 0 0 30px 0;
+  }
+
+  .ai-split-product-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: {{ block.settings.button_padding_vertical }}px {{ block.settings.button_padding_horizontal }}px;
+    background-color: {{ block.settings.button_background }};
+    color: {{ block.settings.button_text_color }};
+    font-family: {{ block.settings.button_font.family }}, {{ block.settings.button_font.fallback_families }};
+    font-weight: {{ block.settings.button_font.weight }};
+    font-size: {{ block.settings.button_size }}px;
+    text-transform: {{ block.settings.button_transform }};
+    text-decoration: none;
+    border: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1.5px;
+  }
+
+  .ai-split-product-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_background }};
+    color: {{ block.settings.button_hover_text_color }};
+  }
+
+  .ai-split-product-image-{{ ai_gen_id }} {
+    position: relative;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+    z-index: 2;
+  }
+
+  .ai-split-product-image-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-split-product-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-split-product-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 400px;
+    max-height: 400px;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-split-product-container-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .ai-split-product-content-{{ ai_gen_id }} {
+      order: 2;
+      padding: 40px 20px;
+      min-height: auto;
+      justify-content: center;
+    }
+
+    .ai-split-product-image-{{ ai_gen_id }} {
+      order: 1;
+      min-height: 400px;
+    }
+
+    .ai-split-product-card-{{ ai_gen_id }} {
+      position: relative;
+      transform: translateY(-60px);
+      margin: 0 20px;
+    }
+
+    .ai-split-product-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.8 }}px;
+    }
+
+    .ai-split-product-price-{{ ai_gen_id }} {
+      font-size: {{ block.settings.price_size | times: 0.9 }}px;
+    }
+
+    .ai-split-product-button-{{ ai_gen_id }} {
+      font-size: {{ block.settings.button_size | times: 0.9 }}px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-split-product-content-{{ ai_gen_id }} {
+      padding: 30px 15px;
+    }
+
+    .ai-split-product-card-{{ ai_gen_id }} {
+      padding: {{ block.settings.card_padding | times: 0.8 }}px;
+    }
+
+    .ai-split-product-image-{{ ai_gen_id }} {
+      min-height: 350px;
+    }
+
+    .ai-split-product-image-placeholder-{{ ai_gen_id }} {
+      min-height: 350px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-split-product-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-split-product-container-{{ ai_gen_id }}">
+    <div class="ai-split-product-content-{{ ai_gen_id }}">
+      <div class="ai-split-product-card-{{ ai_gen_id }}">
+        {% if block.settings.product_title != blank %}
+          <h2 class="ai-split-product-title-{{ ai_gen_id }}">
+            {{ block.settings.product_title }}
+          </h2>
+        {% endif %}
+
+        {% if block.settings.product_price != blank %}
+          <div class="ai-split-product-price-{{ ai_gen_id }}">
+            {{ block.settings.product_price }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.button_text != blank %}
+          <a
+            href="{{ block.settings.button_link }}"
+            class="ai-split-product-button-{{ ai_gen_id }}"
+          >
+            {{ block.settings.button_text }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="ai-split-product-image-{{ ai_gen_id }}">
+      {% if block.settings.product_image %}
+        <img
+          src="{{ block.settings.product_image | image_url: width: 1200 }}"
+          alt="{{ block.settings.product_image.alt | escape }}"
+          loading="lazy"
+          width="{{ block.settings.product_image.width }}"
+          height="{{ block.settings.product_image.height }}"
+        >
+      {% else %}
+        <div class="ai-split-product-image-placeholder-{{ ai_gen_id }}">
+          {{ 'product-apparel-1' | placeholder_svg_tag }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Split product showcase",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Product image"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Product title"
+    },
+    {
+      "type": "text",
+      "id": "product_title",
+      "label": "Title",
+      "default": "POLO T-SHIRT"
+    },
+    {
+      "type": "font_picker",
+      "id": "title_font",
+      "label": "Font",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 16,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Size",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Color",
+      "default": "#1c1b1b"
+    },
+    {
+      "type": "select",
+      "id": "title_transform",
+      "label": "Text style",
+      "options": [
+        {
+          "value": "none",
+          "label": "Normal"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        },
+        {
+          "value": "lowercase",
+          "label": "Lowercase"
+        }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "header",
+      "content": "Product price"
+    },
+    {
+      "type": "text",
+      "id": "product_price",
+      "label": "Price",
+      "default": "₹1,299"
+    },
+    {
+      "type": "font_picker",
+      "id": "price_font",
+      "label": "Font",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "price_size",
+      "min": 14,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Size",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Color",
+      "default": "#677279"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Text",
+      "default": "DISCOVER NOW"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link"
+    },
+    {
+      "type": "font_picker",
+      "id": "button_font",
+      "label": "Font",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "button_size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Size",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "button_transform",
+      "label": "Text style",
+      "options": [
+        {
+          "value": "none",
+          "label": "Normal"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        },
+        {
+          "value": "lowercase",
+          "label": "Lowercase"
+        }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "min": 8,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Hover background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Hover text color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Split product showcase"
+    }
+  ]
+}
 {% endschema %}
