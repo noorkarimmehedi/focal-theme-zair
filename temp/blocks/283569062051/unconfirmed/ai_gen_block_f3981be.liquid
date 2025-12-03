@@ -1,6 +1,573 @@
+{% doc %}
+  @prompt
+    generate a modern shop the look section for me which should be fit in both mobile and desktop. also the text should have animation and UI should be translucent glass morphism UI , i don't like the design in desktop version
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-shop-look-{{ ai_gen_id }} {
+    padding: 80px 20px;
+    background: {{ block.settings.background_color }};
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-shop-look-container-{{ ai_gen_id }} {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .ai-shop-look-header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .ai-shop-look-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 15px;
+    opacity: 0;
+    transform: translateY(30px);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  .ai-shop-look-title-{{ ai_gen_id }}.animate {
+    animation: ai-shop-look-slide-up-{{ ai_gen_id }} 0.8s ease forwards;
+  }
+
+  .ai-shop-look-subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.text_color }};
+    opacity: 0;
+    transform: translateY(30px);
+    margin: 0;
+  }
+
+  .ai-shop-look-subtitle-{{ ai_gen_id }}.animate {
+    animation: ai-shop-look-slide-up-{{ ai_gen_id }} 0.8s ease 0.2s forwards;
+  }
+
+  @keyframes ai-shop-look-slide-up-{{ ai_gen_id }} {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .ai-shop-look-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+
+  .ai-shop-look-item-{{ ai_gen_id }} {
+    position: relative;
+    border-radius: {{ block.settings.card_border_radius }}px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
+  }
+
+  .ai-shop-look-item-{{ ai_gen_id }}.animate {
+    animation: ai-shop-look-fade-in-{{ ai_gen_id }} 0.6s ease forwards;
+  }
+
+  .ai-shop-look-item-{{ ai_gen_id }}:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  @keyframes ai-shop-look-fade-in-{{ ai_gen_id }} {
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .ai-shop-look-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    padding-bottom: 140%;
+    overflow: hidden;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .ai-shop-look-image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .ai-shop-look-item-{{ ai_gen_id }}:hover .ai-shop-look-image-{{ ai_gen_id }} {
+    transform: scale(1.08);
+  }
+
+  .ai-shop-look-placeholder-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-shop-look-placeholder-{{ ai_gen_id }} svg {
+    width: 50%;
+    height: 50%;
+    opacity: 0.2;
+    color: #ffffff;
+  }
+
+  .ai-shop-look-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 30px 25px;
+    background: {{ block.settings.glass_background }};
+    backdrop-filter: blur({{ block.settings.glass_blur }}px) saturate(180%);
+    -webkit-backdrop-filter: blur({{ block.settings.glass_blur }}px) saturate(180%);
+    border-top: 1px solid {{ block.settings.glass_border }};
+    transform: translateY(calc(100% - 80px));
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .ai-shop-look-item-{{ ai_gen_id }}:hover .ai-shop-look-overlay-{{ ai_gen_id }} {
+    transform: translateY(0);
+  }
+
+  .ai-shop-look-product-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.product_title_size }}px;
+    color: {{ block.settings.overlay_text_color }};
+    margin: 0 0 10px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .ai-shop-look-product-price-{{ ai_gen_id }} {
+    font-size: {{ block.settings.product_price_size }}px;
+    color: {{ block.settings.overlay_text_color }};
+    margin: 0 0 18px;
+    font-weight: 600;
+    opacity: 0.95;
+  }
+
+  .ai-shop-look-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 14px 32px;
+    background: {{ block.settings.button_background }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 1px solid {{ block.settings.button_border }};
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+  }
+
+  .ai-shop-look-item-{{ ai_gen_id }}:hover .ai-shop-look-button-{{ ai_gen_id }} {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .ai-shop-look-button-{{ ai_gen_id }}:hover {
+    background: {{ block.settings.button_hover_background }};
+    color: {{ block.settings.button_hover_text_color }};
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .ai-shop-look-empty-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 80px 20px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.6;
+    font-size: 16px;
+  }
+
+  @media screen and (min-width: 990px) and (max-width: 1200px) {
+    .ai-shop-look-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    .ai-shop-look-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+    }
+
+    .ai-shop-look-{{ ai_gen_id }} {
+      padding: 60px 20px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-shop-look-{{ ai_gen_id }} {
+      padding: 40px 15px;
+    }
+
+    .ai-shop-look-header-{{ ai_gen_id }} {
+      margin-bottom: 35px;
+    }
+
+    .ai-shop-look-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.title_size }}px * 0.65);
+    }
+
+    .ai-shop-look-subtitle-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.subtitle_size }}px * 0.85);
+    }
+
+    .ai-shop-look-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .ai-shop-look-overlay-{{ ai_gen_id }} {
+      padding: 15px;
+      transform: translateY(0);
+      backdrop-filter: blur(8px) saturate(180%);
+      -webkit-backdrop-filter: blur(8px) saturate(180%);
+    }
+
+    .ai-shop-look-product-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.product_title_size }}px * 0.85);
+      margin-bottom: 6px;
+    }
+
+    .ai-shop-look-product-price-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.product_price_size }}px * 0.9);
+      margin-bottom: 12px;
+    }
+
+    .ai-shop-look-button-{{ ai_gen_id }} {
+      padding: 10px 20px;
+      font-size: 12px;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .ai-shop-look-item-{{ ai_gen_id }} {
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .ai-shop-look-item-{{ ai_gen_id }}:hover {
+      transform: translateY(0);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+  }
+{% endstyle %}
+
+<shop-the-look-{{ ai_gen_id }} class="ai-shop-look-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-shop-look-container-{{ ai_gen_id }}">
+    <div class="ai-shop-look-header-{{ ai_gen_id }}">
+      {% if block.settings.title != blank %}
+        <h2 class="ai-shop-look-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+      {% endif %}
+      {% if block.settings.subtitle != blank %}
+        <p class="ai-shop-look-subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+
+    {% if block.settings.products != blank %}
+      <div class="ai-shop-look-grid-{{ ai_gen_id }}">
+        {% for product in block.settings.products %}
+          <div class="ai-shop-look-item-{{ ai_gen_id }}" data-index="{{ forloop.index }}">
+            <div class="ai-shop-look-image-wrapper-{{ ai_gen_id }}">
+              {% if product.featured_image %}
+                <img
+                  src="{{ product.featured_image | image_url: width: 800 }}"
+                  alt="{{ product.featured_image.alt | escape }}"
+                  class="ai-shop-look-image-{{ ai_gen_id }}"
+                  loading="lazy"
+                  width="800"
+                  height="1120"
+                >
+              {% else %}
+                <div class="ai-shop-look-placeholder-{{ ai_gen_id }}">
+                  {{ 'product-1' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+              
+              <div class="ai-shop-look-overlay-{{ ai_gen_id }}">
+                <h3 class="ai-shop-look-product-title-{{ ai_gen_id }}">{{ product.title }}</h3>
+                <div class="ai-shop-look-product-price-{{ ai_gen_id }}">{{ product.price | money }}</div>
+                <a href="{{ product.url }}" class="ai-shop-look-button-{{ ai_gen_id }}">
+                  {{ block.settings.button_text }}
+                </a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="ai-shop-look-empty-{{ ai_gen_id }}">
+        <p>Next, add products to showcase your look</p>
+      </div>
+    {% endif %}
+  </div>
+</shop-the-look-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ShopTheLook{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.animationTriggered = false;
+      }
+
+      connectedCallback() {
+        this.setupIntersectionObserver();
+      }
+
+      setupIntersectionObserver() {
+        const options = {
+          root: null,
+          rootMargin: '0px',
+          threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && !this.animationTriggered) {
+              this.animationTriggered = true;
+              this.animateElements();
+            }
+          });
+        }, options);
+
+        observer.observe(this);
+      }
+
+      animateElements() {
+        const title = this.querySelector('.ai-shop-look-title-{{ ai_gen_id }}');
+        const subtitle = this.querySelector('.ai-shop-look-subtitle-{{ ai_gen_id }}');
+        const items = this.querySelectorAll('.ai-shop-look-item-{{ ai_gen_id }}');
+
+        if (title) {
+          title.classList.add('animate');
+        }
+
+        if (subtitle) {
+          subtitle.classList.add('animate');
+        }
+
+        items.forEach((item, index) => {
+          setTimeout(() => {
+            item.classList.add('animate');
+          }, 400 + (index * 80));
+        });
+      }
+    }
+
+    customElements.define('shop-the-look-{{ ai_gen_id }}', ShopTheLook{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Shop the look",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "Shop The Look"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Discover our curated collection"
+    },
+    {
+      "type": "product_list",
+      "id": "products",
+      "label": "Products",
+      "limit": 8
+    },
+    {
+      "type": "inline_richtext",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "product_title_size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Product title size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "product_price_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Product price size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "overlay_text_color",
+      "label": "Overlay text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Glass morphism"
+    },
+    {
+      "type": "color",
+      "id": "glass_background",
+      "label": "Glass background",
+      "default": "rgba(255, 255, 255, 0.1)"
+    },
+    {
+      "type": "color",
+      "id": "glass_border",
+      "label": "Glass border",
+      "default": "rgba(255, 255, 255, 0.2)"
+    },
+    {
+      "type": "range",
+      "id": "glass_blur",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Blur intensity",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Background",
+      "default": "rgba(255, 255, 255, 0.2)"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border",
+      "label": "Border",
+      "default": "rgba(255, 255, 255, 0.3)"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Hover background",
+      "default": "rgba(255, 255, 255, 0.35)"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Card border radius",
+      "default": 16
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop the look"
+    }
+  ]
+}
 {% endschema %}
