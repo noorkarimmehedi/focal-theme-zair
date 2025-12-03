@@ -135,7 +135,7 @@
             "atc_button_size": 40,
             "atc_icon_size": 18,
             "atc_button_radius": 50,
-            "atc_button_bg": "#ffffff33",
+            "atc_button_bg": "#1c1b1b",
             "atc_button_bg_hover": "#ffffff66",
             "atc_button_border_width": 1,
             "atc_button_border_color": "#ffffff4d",
