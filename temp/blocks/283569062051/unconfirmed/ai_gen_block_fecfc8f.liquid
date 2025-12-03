@@ -1,6 +1,691 @@
+{% doc %}
+  @prompt
+    generate a modern shop the look section for me which should be fit in both mobile and desktop. also the text should have animation and UI should be translucent glass morphism UI., this should be more modern unique but in translucent glass morphism UI.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-shop-look-{{ ai_gen_id }} {
+    position: relative;
+    padding: 80px 20px;
+    overflow: hidden;
+    background: {{ block.settings.section_bg_color }};
+  }
+
+  .ai-shop-look-bg-blur-{{ ai_gen_id }} {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 50%, {{ block.settings.gradient_color_1 }} 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, {{ block.settings.gradient_color_2 }} 0%, transparent 50%);
+    opacity: 0.3;
+    filter: blur(80px);
+    animation: ai-shop-look-float-{{ ai_gen_id }} 20s ease-in-out infinite;
+  }
+
+  @keyframes ai-shop-look-float-{{ ai_gen_id }} {
+    0%, 100% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    33% {
+      transform: translate(30px, -30px) rotate(5deg);
+    }
+    66% {
+      transform: translate(-20px, 20px) rotate(-5deg);
+    }
+  }
+
+  .ai-shop-look-container-{{ ai_gen_id }} {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .ai-shop-look-header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .ai-shop-look-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 15px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    opacity: 0;
+    animation: ai-shop-look-slide-down-{{ ai_gen_id }} 1s ease forwards;
+  }
+
+  .ai-shop-look-subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.subtitle_color }};
+    margin: 0;
+    opacity: 0;
+    animation: ai-shop-look-slide-down-{{ ai_gen_id }} 1s ease 0.2s forwards;
+  }
+
+  @keyframes ai-shop-look-slide-down-{{ ai_gen_id }} {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .ai-shop-look-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+  }
+
+  .ai-shop-look-card-{{ ai_gen_id }} {
+    position: relative;
+    border-radius: {{ block.settings.card_border_radius }}px;
+    overflow: hidden;
+    opacity: 0;
+    animation: ai-shop-look-scale-in-{{ ai_gen_id }} 0.8s ease forwards;
+    transition: transform 0.4s ease;
+  }
+
+  .ai-shop-look-card-{{ ai_gen_id }}:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+
+  .ai-shop-look-card-{{ ai_gen_id }}:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .ai-shop-look-card-{{ ai_gen_id }}:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  .ai-shop-look-card-{{ ai_gen_id }}:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes ai-shop-look-scale-in-{{ ai_gen_id }} {
+    from {
+      opacity: 0;
+      transform: scale(0.9) translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .ai-shop-look-card-{{ ai_gen_id }}:hover {
+    transform: translateY(-8px);
+  }
+
+  .ai-shop-look-image-container-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    padding-bottom: 130%;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+  }
+
+  .ai-shop-look-image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .ai-shop-look-card-{{ ai_gen_id }}:hover .ai-shop-look-image-{{ ai_gen_id }} {
+    transform: scale(1.08);
+  }
+
+  .ai-shop-look-placeholder-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-shop-look-placeholder-{{ ai_gen_id }} svg {
+    width: 50%;
+    height: 50%;
+    opacity: 0.2;
+  }
+
+  .ai-shop-look-glass-panel-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 30px 24px;
+    background: {{ block.settings.glass_bg_color }};
+    backdrop-filter: blur({{ block.settings.glass_blur }}px) saturate(180%);
+    -webkit-backdrop-filter: blur({{ block.settings.glass_blur }}px) saturate(180%);
+    border-top: 1px solid rgba(255, 255, 255, {{ block.settings.glass_border_opacity }});
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.1);
+    transform: translateY(calc(100% - 80px));
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .ai-shop-look-card-{{ ai_gen_id }}:hover .ai-shop-look-glass-panel-{{ ai_gen_id }} {
+    transform: translateY(0);
+  }
+
+  .ai-shop-look-glass-shine-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+  }
+
+  .ai-shop-look-card-{{ ai_gen_id }}:hover .ai-shop-look-glass-shine-{{ ai_gen_id }} {
+    left: 100%;
+  }
+
+  .ai-shop-look-product-badge-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: {{ block.settings.glass_text_color }};
+    margin-bottom: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .ai-shop-look-product-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.product_title_size }}px;
+    color: {{ block.settings.glass_text_color }};
+    margin: 0 0 10px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  .ai-shop-look-product-price-{{ ai_gen_id }} {
+    font-size: {{ block.settings.product_price_size }}px;
+    color: {{ block.settings.glass_text_color }};
+    margin: 0 0 20px;
+    font-weight: 600;
+    opacity: 0.95;
+  }
+
+  .ai-shop-look-button-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 32px;
+    background: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-shop-look-button-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .ai-shop-look-button-{{ ai_gen_id }}:hover::before {
+    left: 100%;
+  }
+
+  .ai-shop-look-button-{{ ai_gen_id }}:hover {
+    background: {{ block.settings.button_hover_bg_color }};
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .ai-shop-look-button-icon-{{ ai_gen_id }} {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-shop-look-button-{{ ai_gen_id }}:hover .ai-shop-look-button-icon-{{ ai_gen_id }} {
+    transform: translateX(4px);
+  }
+
+  .ai-shop-look-empty-state-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 60px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: {{ block.settings.card_border_radius }}px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: {{ block.settings.subtitle_color }};
+    font-size: 16px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-shop-look-{{ ai_gen_id }} {
+      padding: 50px 15px;
+    }
+
+    .ai-shop-look-header-{{ ai_gen_id }} {
+      margin-bottom: 40px;
+    }
+
+    .ai-shop-look-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.title_size }}px * 0.65);
+    }
+
+    .ai-shop-look-subtitle-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.subtitle_size }}px * 0.85);
+    }
+
+    .ai-shop-look-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .ai-shop-look-glass-panel-{{ ai_gen_id }} {
+      padding: 20px 16px;
+      transform: translateY(0);
+    }
+
+    .ai-shop-look-product-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.product_title_size }}px * 0.85);
+    }
+
+    .ai-shop-look-product-price-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.product_price_size }}px * 0.85);
+    }
+
+    .ai-shop-look-button-{{ ai_gen_id }} {
+      padding: 12px 24px;
+      font-size: 12px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .ai-shop-look-product-badge-{{ ai_gen_id }} {
+      font-size: 10px;
+      padding: 5px 12px;
+    }
+  }
+
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    .ai-shop-look-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .ai-shop-look-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.products_per_row }}, 1fr);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ai-shop-look-bg-blur-{{ ai_gen_id }} {
+      animation: none;
+    }
+
+    .ai-shop-look-title-{{ ai_gen_id }},
+    .ai-shop-look-subtitle-{{ ai_gen_id }},
+    .ai-shop-look-card-{{ ai_gen_id }} {
+      animation: none;
+      opacity: 1;
+    }
+
+    .ai-shop-look-card-{{ ai_gen_id }}:hover .ai-shop-look-image-{{ ai_gen_id }} {
+      transform: none;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-shop-look-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-shop-look-bg-blur-{{ ai_gen_id }}"></div>
+  
+  <div class="ai-shop-look-container-{{ ai_gen_id }}">
+    <div class="ai-shop-look-header-{{ ai_gen_id }}">
+      {% if block.settings.title != blank %}
+        <h2 class="ai-shop-look-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+      {% endif %}
+      {% if block.settings.subtitle != blank %}
+        <p class="ai-shop-look-subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+
+    {% assign has_products = false %}
+    {% for i in (1..4) %}
+      {% assign product_key = 'product_' | append: i %}
+      {% if block.settings[product_key] != blank %}
+        {% assign has_products = true %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+
+    {% if has_products %}
+      <div class="ai-shop-look-grid-{{ ai_gen_id }}">
+        {% for i in (1..4) %}
+          {% assign product_key = 'product_' | append: i %}
+          {% assign product = block.settings[product_key] %}
+          
+          {% if product != blank %}
+            <div class="ai-shop-look-card-{{ ai_gen_id }}">
+              <div class="ai-shop-look-image-container-{{ ai_gen_id }}">
+                {% if product.featured_image %}
+                  <img
+                    src="{{ product.featured_image | image_url: width: 800 }}"
+                    alt="{{ product.featured_image.alt | escape }}"
+                    class="ai-shop-look-image-{{ ai_gen_id }}"
+                    loading="lazy"
+                    width="800"
+                    height="1040"
+                  >
+                {% else %}
+                  <div class="ai-shop-look-placeholder-{{ ai_gen_id }}">
+                    {{ 'product-1' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+
+                <div class="ai-shop-look-glass-panel-{{ ai_gen_id }}">
+                  <div class="ai-shop-look-glass-shine-{{ ai_gen_id }}"></div>
+                  
+                  {% if block.settings.show_badge %}
+                    <div class="ai-shop-look-product-badge-{{ ai_gen_id }}">
+                      {{ block.settings.badge_text }}
+                    </div>
+                  {% endif %}
+                  
+                  <h3 class="ai-shop-look-product-title-{{ ai_gen_id }}">{{ product.title }}</h3>
+                  <div class="ai-shop-look-product-price-{{ ai_gen_id }}">
+                    {{ product.price | money }}
+                  </div>
+                  <a href="{{ product.url }}" class="ai-shop-look-button-{{ ai_gen_id }}">
+                    <span>{{ block.settings.button_text }}</span>
+                    <svg class="ai-shop-look-button-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="ai-shop-look-empty-state-{{ ai_gen_id }}">
+        Select products to create your curated look
+      </div>
+    {% endif %}
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Shop the look",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "Shop The Look"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Discover our curated collection"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "View"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show product badge",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "New"
+    },
+    {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "product",
+      "id": "product_1",
+      "label": "Product 1"
+    },
+    {
+      "type": "product",
+      "id": "product_2",
+      "label": "Product 2"
+    },
+    {
+      "type": "product",
+      "id": "product_3",
+      "label": "Product 3"
+    },
+    {
+      "type": "product",
+      "id": "product_4",
+      "label": "Product 4"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "products_per_row",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "Products per row (desktop)",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Card border radius",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section background",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "color",
+      "id": "gradient_color_1",
+      "label": "Gradient color 1",
+      "default": "#667eea"
+    },
+    {
+      "type": "color",
+      "id": "gradient_color_2",
+      "label": "Gradient color 2",
+      "default": "#f093fb"
+    },
+    {
+      "type": "header",
+      "content": "Glass morphism"
+    },
+    {
+      "type": "color",
+      "id": "glass_bg_color",
+      "label": "Glass background",
+      "default": "rgba(255, 255, 255, 0.25)"
+    },
+    {
+      "type": "range",
+      "id": "glass_blur",
+      "min": 4,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Blur intensity",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "glass_border_opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "label": "Border opacity",
+      "default": 0.4
+    },
+    {
+      "type": "color",
+      "id": "glass_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 48
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 14,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "product_title_size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Product title size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "product_price_size",
+      "min": 14,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "label": "Product price size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Hover background",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop the look"
+    }
+  ]
+}
 {% endschema %}
