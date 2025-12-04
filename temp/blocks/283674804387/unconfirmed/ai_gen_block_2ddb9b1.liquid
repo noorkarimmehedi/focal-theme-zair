@@ -1,6 +1,484 @@
+{% doc %}
+  @prompt
+    Create a minimal white section with large bold black text on separate centered lines: ‘Make you look’, ‘and’, ‘feel glowy’, ‘and healthy’. Insert rounded-rectangle images placed between the words exactly as shown. Use soft shadows, pastel colors, cosmetic imagery, clean spacing, and a modern skincare aesthetic., font should be customizable from shopify also i want this for images: Border
+    Border width
+    
+    1
+    
+    Border color
+    
+    
+    #E0E0E0
+    
+    Hover border color
+    
+    
+    #CCCCCC
+    
+    Border radius
+    
+    8
+    
+    Shadow
+    Horizontal offset
+    
+    0
+    
+    Vertical offset
+    
+    4
+    
+    Blur radius
+    
+    8
+    
+    Shadow opacity
+    
+    0
+    
+    
+    
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-skincare-text-{{ ai_gen_id }} {
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.section_padding }}px 20px;
+    text-align: center;
+  }
+
+  .ai-skincare-text__container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-skincare-text__line-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: {{ block.settings.spacing }}px;
+    margin-bottom: {{ block.settings.line_spacing }}px;
+    flex-wrap: wrap;
+  }
+
+  .ai-skincare-text__line-{{ ai_gen_id }}:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-skincare-text__text-{{ ai_gen_id }} {
+    font-family: {{ block.settings.text_font.family }}, {{ block.settings.text_font.fallback_families }};
+    font-weight: {{ block.settings.text_font.weight }};
+    font-style: {{ block.settings.text_font.style }};
+    font-size: {{ block.settings.font_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .ai-skincare-text__image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    border-radius: {{ block.settings.border_radius }}px;
+    overflow: hidden;
+    border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+    box-shadow: {{ block.settings.shadow_horizontal }}px {{ block.settings.shadow_vertical }}px {{ block.settings.shadow_blur }}px rgba(0, 0, 0, {{ block.settings.shadow_opacity }});
+    flex-shrink: 0;
+    transition: border-color 0.3s ease;
+  }
+
+  .ai-skincare-text__image-wrapper-{{ ai_gen_id }}:hover {
+    border-color: {{ block.settings.hover_border_color }};
+  }
+
+  .ai-skincare-text__image-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.image_width }}px;
+    height: {{ block.settings.image_height }}px;
+    object-fit: cover;
+  }
+
+  .ai-skincare-text__placeholder-{{ ai_gen_id }} {
+    width: {{ block.settings.image_width }}px;
+    height: {{ block.settings.image_height }}px;
+    background-color: {{ block.settings.placeholder_color }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-skincare-text__placeholder-{{ ai_gen_id }} svg {
+    width: 50%;
+    height: 50%;
+    opacity: 0.3;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-skincare-text__text-{{ ai_gen_id }} {
+      font-size: {{ block.settings.font_size | times: 0.7 }}px;
+    }
+
+    .ai-skincare-text__image-{{ ai_gen_id }},
+    .ai-skincare-text__placeholder-{{ ai_gen_id }} {
+      width: {{ block.settings.image_width | times: 0.7 }}px;
+      height: {{ block.settings.image_height | times: 0.7 }}px;
+    }
+
+    .ai-skincare-text__line-{{ ai_gen_id }} {
+      gap: {{ block.settings.spacing | times: 0.7 }}px;
+      margin-bottom: {{ block.settings.line_spacing | times: 0.7 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-skincare-text-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-skincare-text__container-{{ ai_gen_id }}">
+    <div class="ai-skincare-text__line-{{ ai_gen_id }}">
+      <span class="ai-skincare-text__text-{{ ai_gen_id }}">{{ block.settings.text_line_1 }}</span>
+      {% if block.settings.show_image_1 %}
+        <div class="ai-skincare-text__image-wrapper-{{ ai_gen_id }}">
+          {% if block.settings.image_1 %}
+            <img
+              src="{{ block.settings.image_1 | image_url: width: 400 }}"
+              alt="{{ block.settings.image_1.alt | escape }}"
+              class="ai-skincare-text__image-{{ ai_gen_id }}"
+              loading="lazy"
+              width="{{ block.settings.image_width }}"
+              height="{{ block.settings.image_height }}"
+            >
+          {% else %}
+            <div class="ai-skincare-text__placeholder-{{ ai_gen_id }}">
+              {{ 'product-1' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+      <span class="ai-skincare-text__text-{{ ai_gen_id }}">{{ block.settings.text_line_2 }}</span>
+    </div>
+
+    <div class="ai-skincare-text__line-{{ ai_gen_id }}">
+      <span class="ai-skincare-text__text-{{ ai_gen_id }}">{{ block.settings.text_line_3 }}</span>
+    </div>
+
+    <div class="ai-skincare-text__line-{{ ai_gen_id }}">
+      <span class="ai-skincare-text__text-{{ ai_gen_id }}">{{ block.settings.text_line_4 }}</span>
+      {% if block.settings.show_image_2 %}
+        <div class="ai-skincare-text__image-wrapper-{{ ai_gen_id }}">
+          {% if block.settings.image_2 %}
+            <img
+              src="{{ block.settings.image_2 | image_url: width: 400 }}"
+              alt="{{ block.settings.image_2.alt | escape }}"
+              class="ai-skincare-text__image-{{ ai_gen_id }}"
+              loading="lazy"
+              width="{{ block.settings.image_width }}"
+              height="{{ block.settings.image_height }}"
+            >
+          {% else %}
+            <div class="ai-skincare-text__placeholder-{{ ai_gen_id }}">
+              {{ 'product-1' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+      <span class="ai-skincare-text__text-{{ ai_gen_id }}">{{ block.settings.text_line_5 }}</span>
+      {% if block.settings.show_image_3 %}
+        <div class="ai-skincare-text__image-wrapper-{{ ai_gen_id }}">
+          {% if block.settings.image_3 %}
+            <img
+              src="{{ block.settings.image_3 | image_url: width: 400 }}"
+              alt="{{ block.settings.image_3.alt | escape }}"
+              class="ai-skincare-text__image-{{ ai_gen_id }}"
+              loading="lazy"
+              width="{{ block.settings.image_width }}"
+              height="{{ block.settings.image_height }}"
+            >
+          {% else %}
+            <div class="ai-skincare-text__placeholder-{{ ai_gen_id }}">
+              {{ 'product-1' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ai-skincare-text__line-{{ ai_gen_id }}">
+      <span class="ai-skincare-text__text-{{ ai_gen_id }}">{{ block.settings.text_line_6 }}</span>
+    </div>
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Skincare text with images",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Text content"
+    },
+    {
+      "type": "text",
+      "id": "text_line_1",
+      "label": "Line 1 - before image",
+      "default": "Make you look"
+    },
+    {
+      "type": "text",
+      "id": "text_line_2",
+      "label": "Line 1 - after image"
+    },
+    {
+      "type": "text",
+      "id": "text_line_3",
+      "label": "Line 2",
+      "default": "and"
+    },
+    {
+      "type": "text",
+      "id": "text_line_4",
+      "label": "Line 3 - before images",
+      "default": "feel glowy"
+    },
+    {
+      "type": "text",
+      "id": "text_line_5",
+      "label": "Line 3 - between images"
+    },
+    {
+      "type": "text",
+      "id": "text_line_6",
+      "label": "Line 4",
+      "default": "and healthy"
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image_1",
+      "label": "Show image 1",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image_2",
+      "label": "Show image 2",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image_3",
+      "label": "Show image 3",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Image 3"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "text_font",
+      "label": "Font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 24,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Font size",
+      "default": 64
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "placeholder_color",
+      "label": "Image placeholder",
+      "default": "#fce4ec"
+    },
+    {
+      "type": "header",
+      "content": "Image size"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "min": 60,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Width",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "image_height",
+      "min": 60,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Height",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Border"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#E0E0E0"
+    },
+    {
+      "type": "color",
+      "id": "hover_border_color",
+      "label": "Hover border color",
+      "default": "#CCCCCC"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Shadow"
+    },
+    {
+      "type": "range",
+      "id": "shadow_horizontal",
+      "min": -20,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Horizontal offset",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "shadow_vertical",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Vertical offset",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "shadow_blur",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Blur radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "shadow_opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "label": "Shadow opacity",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 600,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "label": "Maximum width",
+      "default": 1000
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 20,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "spacing",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Spacing between elements",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "line_spacing",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Spacing between lines",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Skincare text with images"
+    }
+  ]
+}
 {% endschema %}
