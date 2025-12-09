@@ -163,8 +163,8 @@
         "ai_gen_block_eb7330a_WUFPnM": {
           "type": "ai_gen_block_eb7330a",
           "settings": {
-            "collection": "best-sellers",
-            "products_to_show": 8,
+            "collection": "regular-collar-casual",
+            "products_to_show": 6,
             "show_header": true,
             "heading": "Featured Collection",
             "description": "<p>Discover our curated selection of premium products</p>",
@@ -174,9 +174,9 @@
             "card_position": "absolute",
             "card_vertical_position": 20,
             "card_horizontal_position": 20,
-            "card_spacing": 16,
+            "card_spacing": 12,
             "glass_background": "#ffffff33",
-            "glass_blur": 10,
+            "glass_blur": 20,
             "glass_border_width": 1,
             "glass_border_color": "#ffffff4d",
             "card_border_radius": 0,
