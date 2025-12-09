@@ -68,9 +68,10 @@
           "type": "ai_gen_block_b013182",
           "settings": {
             "heading": "",
-            "subheading": "<p>Vastramay brings India’s culture alive with stylish, comfortable ethnic wear for all.</p>",
+            "subheading": "<p>Zair brings India’s culture alive with stylish, comfortable ethnic wear for all.</p>",
             "button_label": "Shop Now",
             "button_link": "shopify://products/rosetta-sari",
+            "background_image": "shopify://shop_images/Free-Delivery.png",
             "placeholder_color": "#f3f3f3",
             "overlay_color": "#000000",
             "overlay_opacity": 10,
