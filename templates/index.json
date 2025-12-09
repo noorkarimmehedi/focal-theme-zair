@@ -71,7 +71,6 @@
             "subheading": "<p>Vastramay brings India’s culture alive with stylish, comfortable ethnic wear for all.</p>",
             "button_label": "Shop Now",
             "button_link": "shopify://products/rosetta-sari",
-            "background_image": "shopify://shop_images/AJ6541_db4c1464-d5a8-48e0-9ad5-fa06850e0e42.webp",
             "placeholder_color": "#f3f3f3",
             "overlay_color": "#000000",
             "overlay_opacity": 10,
@@ -163,7 +162,7 @@
         "ai_gen_block_eb7330a_WUFPnM": {
           "type": "ai_gen_block_eb7330a",
           "settings": {
-            "collection": "frontpage",
+            "collection": "all-products",
             "products_to_show": 8,
             "show_header": true,
             "heading": "Featured Collection",
@@ -250,16 +249,13 @@
             "text_1": "TIMELESS",
             "box_1": "MODERN",
             "show_image_1": true,
-            "image_1": "shopify://shop_images/AJ6541_db4c1464-d5a8-48e0-9ad5-fa06850e0e42.webp",
             "image_1_link": "",
             "box_2": "",
             "text_3": "LOOKS THAT\"S",
             "show_image_3": true,
-            "image_3": "shopify://shop_images/imgi_13_AnkitaJain29Mar25_1762.jpg",
             "image_3_link": "",
             "text_4": "REFINED",
             "show_image_4": true,
-            "image_4": "shopify://shop_images/imgi_11_AnkitaJain29Mar25_1764.jpg",
             "image_4_link": "",
             "box_4": "AND",
             "box_5": "MODERNISED",
@@ -317,11 +313,9 @@
             "summary_font_size": 16,
             "content_font_size": 15,
             "animation_speed": 0.5,
-            "default_image": "shopify://shop_images/imgi_95_AnkitaJain29Mar25_1762.jpg",
             "feature_1_enabled": true,
             "feature_1_title": "Details & Summary",
             "feature_1_content": "<p>A built-in web platform disclosure, accessible by default — no JavaScript required.</p>",
-            "feature_1_image": "shopify://shop_images/imgi_95_AnkitaJain29Mar25_1762.jpg",
             "feature_2_enabled": true,
             "feature_2_title": "Smooth Height",
             "feature_2_content": "<p>Create smooth auto-to-open transitions on height with modern CSS.</p>",
@@ -398,16 +392,15 @@
         "category_MLU7Tz": {
           "type": "category",
           "settings": {
-            "image": "shopify://shop_images/imgi_95_AnkitaJain29Mar25_1762.jpg",
+            "image": "shopify://shop_images/IMG_1588_ffe60cb3-899f-48ee-b8d6-19635f91f319.jpg",
             "title": "Women's Fashion",
             "tag": "Trending",
-            "link": ""
+            "link": "shopify://collections/all-winter-collections"
           }
         },
         "category_txXdhB": {
           "type": "category",
           "settings": {
-            "image": "shopify://shop_images/imgi_94_AnkitaJain29Mar25_1757.jpg",
             "title": "Men's Collection",
             "tag": "New Arrivals",
             "link": ""
@@ -416,7 +409,6 @@
         "category_jawbNi": {
           "type": "category",
           "settings": {
-            "image": "shopify://shop_images/imgi_12_AnkitaJain29Mar25_1757.jpg",
             "title": "Accessories",
             "tag": "Best Sellers",
             "link": ""
@@ -425,7 +417,6 @@
         "category_cjRR9B": {
           "type": "category",
           "settings": {
-            "image": "shopify://shop_images/imgi_11_AnkitaJain29Mar25_1764.jpg",
             "title": "Summer Styles",
             "tag": "Seasonal",
             "link": ""
