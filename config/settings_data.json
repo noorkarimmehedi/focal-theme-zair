@@ -66,6 +66,7 @@
         "type": "header",
         "settings": {
           "enable_sticky_header": true,
+          "logo": "shopify://shop_images/Untitled_280_x_80_px_01.png",
           "logo_max_width": 140,
           "mobile_logo_max_width": 100,
           "navigation_menu": "main-menu",
