@@ -201,7 +201,7 @@
             "image_border_radius": 0,
             "image_hover_scale": 11,
             "image_placeholder_color": "#f4f4f4",
-            "show_sale_badge": true,
+            "show_sale_badge": false,
             "sale_badge_text": "Sale",
             "badge_position_top": 12,
             "badge_position_right": 12,
